@@ -3,6 +3,9 @@
 #include<eigen3/Eigen/Dense>
 #include<iostream>
 
+using namespace std;
+using namespace Eigen;
+
 int main(){
 
     // Basic Example of cpp
@@ -51,5 +54,21 @@ int main(){
     // TO DO: Define point P
     // TO DO: Define rotation matrix M
     // TO DO: M * P
+
+    cout << "Rotate and translate" << endl;
+    Vector3f P(2, 1, 1);
+    Matrix3f rotate, translate;
+    rotate << 0, -1, 0,
+              1, 0, 0,
+              0, 0, 1;
+    translate << 1, 0, 1,
+                0, 1, 2,
+                0, 0, 1;
+    P = translate * rotate * P;
+    cout << P << endl;
+
+
+
+
     return 0;
 }

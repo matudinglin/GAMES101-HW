@@ -1,2 +1,2 @@
-# GAMES101-HW-
-GAMES101 homeworks
+# GAMES101-HW
+GAMES101 Homeworks
