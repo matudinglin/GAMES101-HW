@@ -210,33 +210,40 @@ inline Bounds3 Triangle::getBounds() { return Union(Bounds3(v0, v1), v2); }
 
 inline Intersection Triangle::getIntersection(Ray ray)
 {
-    Intersection inter;
-
-    if (dotProduct(ray.direction, normal) > 0)
-        return inter;
-    double u, v, t_tmp = 0;
-    Vector3f pvec = crossProduct(ray.direction, e2);
-    double det = dotProduct(e1, pvec);
-    if (fabs(det) < EPSILON)
-        return inter;
-
-    double det_inv = 1. / det;
-    Vector3f tvec = ray.origin - v0;
-    u = dotProduct(tvec, pvec) * det_inv;
-    if (u < 0 || u > 1)
-        return inter;
-    Vector3f qvec = crossProduct(tvec, e1);
-    v = dotProduct(ray.direction, qvec) * det_inv;
-    if (v < 0 || u + v > 1)
-        return inter;
-    t_tmp = dotProduct(e2, qvec) * det_inv;
-
     // TODO find ray triangle intersection
+    Vector3f E1, E2, S, S1, S2;
+    E1 = v1 - v0;
+    E2 = v2 - v0;
+    S = ray.origin - v0;
+    S1 = crossProduct(ray.direction, E2);
+    S2 = crossProduct(S, E1);
+    
+    float S1E1 = dotProduct(S1, E1);
+    float t = dotProduct(S2, E2) / S1E1;
+    float b1 = dotProduct(S1, S) / S1E1;
+    float b2 = dotProduct(S2, ray.direction) / S1E1;
 
+    float tnear = t;
+    float u = b1;
+    float v = b2;
 
+    Intersection isect;
 
+    if(tnear >= 0 && u >= 0 && v >= 0 && (u+v) <= 1)
+    {
+        isect.happened = true;
+        isect.coords = Vector3f(tnear, u, v);
+        isect.normal = normal;
+        isect.distance = tnear;
+        isect.obj = this;
+        isect.m = m;
 
-    return inter;
+        return isect;
+    }
+    else
+    {
+        return isect;
+    }
 }
 
 inline Vector3f Triangle::evalDiffuseColor(const Vector2f&) const
