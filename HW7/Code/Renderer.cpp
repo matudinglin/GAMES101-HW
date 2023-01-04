@@ -6,6 +6,7 @@
 #include "Scene.hpp"
 #include "Renderer.hpp"
 
+#include <thread>
 
 inline float deg2rad(const float& deg) { return deg * M_PI / 180.0; }
 
@@ -26,6 +27,20 @@ void Renderer::Render(const Scene& scene)
     // change the spp value to change sample ammount
     int spp = 16;
     std::cout << "SPP: " << spp << "\n";
+    std::cout << std::thread::hardware_concurrency() << "\n";
+#define MT 1
+#ifdef MT
+    // std::vector<u_int32_t> heightIter(scene.height), widthIter(scene.width);   
+    // std::iota(heightIter.begin(), heightIter.end(), 0);
+    // std::iota(widthIter.begin(), widthIter.end(), 0);
+
+    // std::for_each(heightIter.begin(), heightIter.end(),
+    // []()
+    // {
+        
+    // })
+    
+#else
     for (uint32_t j = 0; j < scene.height; ++j) {
         for (uint32_t i = 0; i < scene.width; ++i) {
             // generate primary ray direction
@@ -42,6 +57,7 @@ void Renderer::Render(const Scene& scene)
         UpdateProgress(j / (float)scene.height);
     }
     UpdateProgress(1.f);
+#endif
 
     // save framebuffer to file
     FILE* fp = fopen("binary.ppm", "wb");
