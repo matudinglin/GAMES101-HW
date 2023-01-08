@@ -73,6 +73,19 @@ The result below shows the CornellBox scence generated in 16 SPP:
 
 ![hw7-1](/Results/hw7-1.png)
 
-The result below shows the CornellBox scence generated in :
+The result below shows the CornellBox scence generated in 64 SPP:
 
 ![hw7-2](/Results/hw7-2.png)
+
+The result below shows the CornellBox scence generated in 512 SPP:
+
+![hw7-3](/Results/hw7-3.png)
+
+## Homework 8
+
+**Homework 8** is about implementing the <u>Mass-Spring System and simulate using Implicit Eular method, Explicit Eular method and Verlet method</u>.
+
+The blue line shows the Implicit Eular simulation and green line show the Verlet method simulation:
+
+![hw8-1](/Results/hw8-1.png)
+
